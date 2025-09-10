@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <section class="card two-col">
+
+    <!-- Left Block: Formular -->
+    <div class="col form-col">
+      <h1>Registration</h1>
+
+      {% if success %}
+        <div class="alert success" role="status">Registration successful.</div>
+      {% endif %}
+
+      <form method="post" novalidate>
+
+        <!-- First Name -->
+        <div class="field">
+          <label for="user_first_name">First Name</label>
+          <input
+            id="user_first_name"
+            name="user_first_name"
+            type="text"
+            placeholder="First Name"
+            minlength="2"
+            maxlength="40"
+            autocomplete="given-name"
+            class="{% if errors.get('user_first_name') %}invalid{% endif %}"
+            {% if values %}value="{{ values.get('user_first_name','') }}"{% endif %}
+            aria-describedby="user_first_name_error"
+            aria-invalid="{{ 'true' if errors.get('user_first_name') else 'false' }}"
+            required
+          />
+          {% for e in errors.get('user_first_name', []) %}
+            <div id="user_first_name_error" class="error">{{ e }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Last Name -->
+        <div class="field">
+          <label for="user_last_name">Last Name</label>
+          <input
+            id="user_last_name"
+            name="user_last_name"
+            type="text"
+            placeholder="Last Name"
+            minlength="2"
+            maxlength="40"
+            autocomplete="family-name"
+            class="{% if errors.get('user_last_name') %}invalid{% endif %}"
+            {% if values %}value="{{ values.get('user_last_name','') }}"{% endif %}
+            aria-describedby="user_last_name_error"
+            aria-invalid="{{ 'true' if errors.get('user_last_name') else 'false' }}"
+            required
+          />
+          {% for e in errors.get('user_last_name', []) %}
+            <div id="user_last_name_error" class="error">{{ e }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Username -->
+        <div class="field">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            placeholder="z. B. MaxMustermann_123"
+            minlength="3"
+            maxlength="20"
+            pattern="^[A-Za-z0-9_]{3,20}$"
+            autocomplete="username"
+            class="{% if errors.get('username') %}invalid{% endif %}"
+            {% if values %}value="{{ values.get('username','') }}"{% endif %}
+            aria-describedby="username_error"
+            aria-invalid="{{ 'true' if errors.get('username') else 'false' }}"
+            required
+          />
+          {% for e in errors.get('username', []) %}
+            <div id="username_error" class="error">{{ e }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- E-Mail -->
+        <div class="field">
+          <label for="user_mail_address">E-Mail</label>
+          <input
+            id="user_mail_address"
+            name="user_mail_address"
+            type="email"
+            placeholder="E-Mail"
+            autocomplete="email"
+            class="{% if errors.get('user_mail_address') %}invalid{% endif %}"
+            {% if values %}value="{{ values.get('user_mail_address','') }}"{% endif %}
+            aria-describedby="user_mail_address_error"
+            aria-invalid="{{ 'true' if errors.get('user_mail_address') else 'false' }}"
+            required
+          />
+          {% for e in errors.get('user_mail_address', []) %}
+            <div id="user_mail_address_error" class="error">{{ e }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Password -->
+        <div class="field">
+          <label for="user_password">Password</label>
+          <input
+            id="user_password"
+            name="user_password"
+            type="password"
+            placeholder="Mindestens 12 Zeichen"
+            minlength="12"
+            maxlength="50"
+            pattern=".{12,50}"
+            autocomplete="new-password"
+            class="{% if errors.get('user_password') %}invalid{% endif %}"
+            aria-describedby="user_password_error"
+            aria-invalid="{{ 'true' if errors.get('user_password') else 'false' }}"
+            required
+          />
+          {% for e in errors.get('user_password', []) %}
+            <div id="user_password_error" class="error">{{ e }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="field">
+          <label for="confirm_user_password">Confirm Password</label>
+          <input
+            id="confirm_user_password"
+            name="confirm_user_password"
+            type="password"
+            placeholder="Passwort wiederholen"
+            minlength="12"
+            maxlength="50"
+            pattern=".{12,50}"
+            autocomplete="new-password"
+            class="{% if errors.get('confirm_user_password') %}invalid{% endif %}"
+            aria-describedby="confirm_user_password_error"
+            aria-invalid="{{ 'true' if errors.get('confirm_user_password') else 'false' }}"
+            required
+          />
+          {% for e in errors.get('confirm_user_password', []) %}
+            <div id="confirm_user_password_error" class="error">{{ e }}</div>
+          {% endfor %}
+        </div>
+
+        <!-- Aktionen -->
+        <div class="actions">
+          <a class="link" href="#">Help</a>
+          <button class="btn btn-primary" type="submit">Weiter</button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Right Block: Illustration  -->
+    <aside class="col art-col">
+      <img class="art"
+           src="{{ url_for('static', filename='img/illustration.svg') }}"
+           alt="Sichere Anmeldung">
+      <p class="side-hint">Später noch anpassen</p>
+    </aside>
+
+  </section>
+
+{% endblock %}
