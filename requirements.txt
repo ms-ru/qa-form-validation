@@ -1,2 +1,5 @@
 Flask==3.* 
 pytest == 8.* 
+pytest
+
+pytest
