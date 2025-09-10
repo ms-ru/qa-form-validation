@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc 
+.venv-form-validation/ 
+.env
+.DS_Store
