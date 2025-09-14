@@ -3,13 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Page title (can be overridden by Flask variable "title") -->
   <title>{{ title or "Registrierung" }}</title>
+
+  <!-- Link to external CSS file stored in /static/styles.css -->
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
   <main class="container">
+    <!-- Content block to be filled by child templates (e.g. form.html) -->
     {% block content %}{% endblock %}
   </main>
+
+  <!-- Link to external JavaScript file stored in /static/script.js -->
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+ 

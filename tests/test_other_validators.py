@@ -3,21 +3,47 @@ from validators import (
     validate_password, validate_confirm_password
 )
 
+
 def test_last_name_ok_and_bad():
-    assert validate_last_name("O'Neil") == []
-    assert validate_last_name("A")  
+    """
+    Test last name validation.
+    - A valid last name (with apostrophe) should pass.
+    - Too short (1 character) should fail.
+    """
+    assert validate_last_name("O'Neil") == []   # valid
+    assert validate_last_name("A")              # invalid (too short)
+
 
 def test_username_rules():
-    assert validate_username("ok_name_123") == []
-    assert validate_username("ab")          
-    assert validate_username("bad name")   
+    """
+    Test username validation.
+    - A valid email-like string should pass.
+    - Invalid cases: too short or containing spaces should fail.
+    """
+    assert validate_username("ok_name_123") == []  # valid email-like username
+    assert validate_username("ab")                 # invalid (too short / not email format)
+    assert validate_username("bad name")           # invalid (space not allowed)
+
 
 def test_email_rules():
-    assert validate_email("me@example.com") == []
-    assert validate_email("no-at.com")      
+    """
+    Test email validation.
+    - A correct email should pass.
+    - Missing '@' symbol should fail.
+    """
+    assert validate_email("me@example.com") == []  # valid
+    assert validate_email("no-at.com")             # invalid
+
 
 def test_password_and_confirm():
-    assert validate_password("abcdefghijkl") == []
-    assert validate_password("short")        
-    assert validate_confirm_password("aaa","bbb")  
-    assert validate_confirm_password("aaa","aaa") == []
+    """
+    Test password and confirmation rules.
+    - Valid length (≥12 characters) should pass.
+    - Too short should fail.
+    - Confirmation must match original password.
+    """
+    assert validate_password("abcdefghijkl") == []     # valid (12 chars)
+    assert validate_password("short")                  # invalid (too short)
+
+    assert validate_confirm_password("aaa", "bbb")     # invalid (not matching)
+    assert validate_confirm_password("aaa", "aaa") == []  # valid (matching)

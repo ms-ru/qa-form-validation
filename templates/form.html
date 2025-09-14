@@ -3,14 +3,18 @@
 
   <section class="card two-col">
 
-    <!-- Left Block: Formular -->
+    <!-- Left Block: Registration Form -->
     <div class="col form-col">
       <h1>Registration</h1>
 
+      <!-- Success message (only visible after successful POST) -->
       {% if success %}
         <div class="alert success" role="status">Registration successful.</div>
       {% endif %}
 
+      <!-- Registration form -->
+      <!-- "novalidate" disables browser's built-in validation,
+           so Flask/Python validation rules are applied instead -->
       <form method="post" novalidate>
 
         <!-- First Name -->
@@ -30,6 +34,7 @@
             aria-invalid="{{ 'true' if errors.get('user_first_name') else 'false' }}"
             required
           />
+          <!-- Loop through error messages for this field -->
           {% for e in errors.get('user_first_name', []) %}
             <div id="user_first_name_error" class="error">{{ e }}</div>
           {% endfor %}
@@ -144,7 +149,7 @@
           {% endfor %}
         </div>
 
-        <!-- Aktionen -->
+        <!-- Form Actions -->
         <div class="actions">
           <a class="link" href="#">Help</a>
           <button class="btn btn-primary" type="submit">Weiter</button>
@@ -153,7 +158,7 @@
       </form>
     </div>
 
-    <!-- Right Block: Illustration  -->
+    <!-- Right Block: Illustration or side content -->
     <aside class="col art-col">
       <img class="art"
            src="{{ url_for('static', filename='img/illustration.jpg') }}"
