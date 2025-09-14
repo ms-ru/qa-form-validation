@@ -1,10 +1,135 @@
+/* ===== Design tokens (global variables) ===== */
+:root {
+  --bg: #f6f7fb;
+  --card: #fff;
+  --text: #111;
+  --muted: #6b7280;
+  --error: #b91c1c;
+  --border: #e5e7eb;
+  --primary: #1a73e8;
 
-body {background: #f6f7fb ;}
-
-.container {
-    max-width: 560px; 
-    margin: 40px auto; 
-    background: #fff; 
-    padding: 24px; 
-    border-radius: 12px;
+  /* page paddings and card sizing */
+  --page-pad: clamp(16px, 4vw, 48px); 
+  --card-max: 1200px;                 
 }
+
+* { box-sizing: border-box; }
+html, body { height: 100%; } /* enables viewport height math if needed */
+
+body {
+  margin: 0;
+  font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+/* ===== Outer container from base.html ===*/
+.container {
+  max-width: none;
+  margin: 0;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* ===== Card and 2-column wrapper (<section class="card two-col">) =====
+   Card spans almost the full page width with a consistent outer padding. */
+.card {
+  width: min(var(--card-max), calc(100% - var(--page-pad)*2));
+  margin: var(--page-pad) auto;
+  background: #fff;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr;        
+  gap: 24px;
+}
+@media (min-width: 900px) {
+  .two-col { grid-template-columns: 3fr 2fr; gap: 32px; } 
+}
+.col { min-width: 0; }
+.form-col { padding-right: 8px; }
+
+/* Right side illustration, hidden on mobile */
+.art-col { display: none; }
+@media (min-width: 900px) {
+  .art-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid var(--border);
+    padding-left: 24px;
+    color: var(--primary); 
+  }
+}
+.art { max-width: clamp(320px, 38vw, 560px); width: 100%; height: auto; }
+.side-hint { color: var(--muted); font-size: 14px; text-align: center; margin-top: 12px; }
+
+/* ===== Typography & field basics ===== */
+h1 { font-size: 38px; line-height: 1.2; font-weight: 700; margin: 0 0 24px; }
+.field { margin-bottom: 18px; }
+label { display: block; font-size: 14px; color: #374151; margin-bottom: 6px; }
+
+/* ===== Inputs ===== */
+input, select, textarea {
+  width: 100%;
+  height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px; 
+  background: #fff;
+  font: inherit;
+}
+input::placeholder { color: #9ca3af; }
+input:hover { border-color: #d1d5db; }
+input:focus { outline: 0; }
+
+input:focus-visible {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(26,115,232,.15);
+}
+input.invalid {
+  border-color: var(--error);
+  box-shadow: 0 0 0 3px rgba(185,28,28,.15);
+}
+
+/* ===== 2-column grid for grouped fields (name, password) ===== */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 14px;
+  align-items: start;
+}
+@media (min-width: 640px) {
+  .grid-2 { grid-template-columns: 1fr 1fr; } 
+}
+/* make one item span both columns (e.g., username/email) */
+.grid-2 .span-2 { grid-column: 1 / -1; }
+
+/* ===== Help and error messages ===== */
+.hint { margin-top: 6px; font-size: 13px; color: var(--muted); }
+.error { margin-top: 6px; color: var(--error); font-size: 14px; word-break: break-word; }
+
+/* ===== Actions ===== */
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+@media (min-width: 640px){
+  .actions { justify-content: flex-end; gap: 16px; }
+  .actions .link { margin-right: auto; }
+}
+a.link { color: var(--primary); text-decoration: none; font-weight: 500; }
+a.link:hover { text-decoration: underline; }
+.btn {
+  border: 0; border-radius: 8px; height: 40px; padding: 0 16px; cursor: pointer; font-weight: 600;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { filter: brightness(0.92); }
